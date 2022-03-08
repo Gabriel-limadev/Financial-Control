@@ -1,15 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
-from financas.views import DepesasViewSet, ReceitasViewSet, CategoriasViewSet
+from finance.views import ExpensesViewSet, RevenuesViewSet, CategoriesViewSet, ExpensesMonth, RevenuesMonth, ResumeMonth
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('categorias', CategoriasViewSet, basename='Categorias')
-router.register('despesas', DepesasViewSet, basename='Despesas')
-router.register('receitas', ReceitasViewSet, basename='Receitas')
-
+router.register('categories', CategoriesViewSet, basename='Categories')
+router.register('revenues',   RevenuesViewSet,   basename='Revenues')
+router.register('expenses',   ExpensesViewSet,   basename='Expenses')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    # For month
+    path('expenses/<int:year>/<int:month>/', ExpensesMonth.as_view()),
+    path('revenues/<int:year>/<int:month>/', RevenuesMonth.as_view()),
+    path('resume/<int:year>/<int:month>/', ResumeMonth.as_view())
 ]
+        

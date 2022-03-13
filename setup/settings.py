@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     # APIs
     'rest_framework',
     # Filters
-    'django_filters',   
+    'django_filters',  
     # Default apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -129,8 +129,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    # General project settings
+    # Pagination
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
 }
 
+
+
+# Heroku Deploy
 django_heroku.settings(locals())

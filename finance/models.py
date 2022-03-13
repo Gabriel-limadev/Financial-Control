@@ -1,24 +1,20 @@
 from django.db import models
 
-class Categorie(models.Model):
-    """Representation of the categories of each expense"""
-    name = models.CharField(max_length=255, unique=True)
-    
-    class Meta:
-        ordering = ['name']
-        db_table = 'categorie'
-        verbose_name = 'Categorie'
-        
-    def __str__(self):
-        return self.name
-
-
 class Expense(models.Model):
     """Representation of all user expense"""
+    CATEGORIE = (
+        ('F', 'Food'),
+        ('H', 'Health'),
+        ('T', 'Transport'),
+        ('E', 'Education'),
+        ('L', 'Leisure'),
+        ('O', 'Others')
+    )
+
     description = models.CharField(max_length=255)
     value = models.DecimalField(max_digits=6, decimal_places=2)
     date = models.DateField()
-    categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE, default=8)
+    categorie = models.CharField(max_length=1, choices=CATEGORIE, default='A')
     
     class Meta:
         ordering = ['date', 'value']

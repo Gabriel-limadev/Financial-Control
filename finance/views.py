@@ -3,20 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Sum
 
-from .models import Categorie, Expense, Revenue
-from .serializer import ExpenseSerializer, RevenueSerializer, CategorieSerializer
-from rest_framework.authentication import BasicAuthentication
+from .models import Expense, Revenue
+from .serializer import ExpenseSerializer, RevenueSerializer
 from rest_framework.permissions import IsAuthenticated
-
-# Customizing an categorie search query
-class CategoriesViewSet(viewsets.ModelViewSet):
-    """showing all categories"""
-    queryset = Categorie.objects.all()
-    serializer_class = CategorieSerializer
-    # Authentication
-    authentication_classes = [BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-
 
 # Customizing an expense search query
 class ExpensesViewSet(viewsets.ModelViewSet):
@@ -27,7 +16,6 @@ class ExpensesViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
     # Authentication
-    authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
 
@@ -36,11 +24,10 @@ class RevenuesViewSet(viewsets.ModelViewSet):
     """showing all revenues"""
     queryset = Revenue.objects.all()
     serializer_class = RevenueSerializer
-    # Buscas
+    # Searches
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
-    # Autenticação
-    authentication_classes = [BasicAuthentication]
+    # Authentication
     permission_classes = [IsAuthenticated]
 
 
@@ -51,11 +38,10 @@ class RevenuesMonth(generics.ListAPIView):
         queryset = Revenue.objects.filter(date__year=self.kwargs['year'], date__month=self.kwargs['month'])
         return queryset
     serializer_class = RevenueSerializer
-    # Buscas
+    # Searches
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
     # Authentication
-    authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
 
@@ -70,7 +56,6 @@ class ExpensesMonth(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
     # Authentication
-    authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
 
@@ -88,8 +73,10 @@ class ResumeMonth(APIView):
             expense['value'] = expense['value__sum']
             del expense['value__sum']
 
-        # Calculating profit for the month
-        final_balance = total_expenses - total_revenues
+        final_balance = 0
+        if total_expenses and total_revenues:
+            final_balance = int(total_expenses) - int(total_revenues)
+            
 
         # Returning an answer via Json
         return Response({

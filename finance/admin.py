@@ -1,16 +1,6 @@
 from django.contrib import admin
-from .models import Categorie, Expense, Revenue
+from .models import Expense, Revenue
 # Register your models here.
-
-class Categories(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    list_display_links = ('id', 'name')
-    search_fields = ('name',)
-    ordering = ['name']
-    list_per_page = 10
-
-
-admin.site.register(Categorie, Categories) 
 
 class Expenses(admin.ModelAdmin):
     list_display = ('description', 'value', 'date')

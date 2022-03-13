@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from finance.views import ExpensesViewSet, RevenuesViewSet, CategoriesViewSet, ExpensesMonth, RevenuesMonth, ResumeMonth
+from finance.views import ExpensesViewSet, RevenuesViewSet, ExpensesMonth, RevenuesMonth, ResumeMonth
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('categories', CategoriesViewSet, basename='Categories')
 router.register('revenues',   RevenuesViewSet,   basename='Revenues')
 router.register('expenses',   ExpensesViewSet,   basename='Expenses')
 

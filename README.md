@@ -1,5 +1,10 @@
 # Controle Financeiro
 
+## Login da API
+- Usuario: convidado
+- Senha: 123456
+
+
 ## 📎 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:

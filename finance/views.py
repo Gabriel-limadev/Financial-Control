@@ -15,8 +15,6 @@ class ExpensesViewSet(viewsets.ModelViewSet):
     # Searches
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
-    # Authentication
-    permission_classes = [IsAuthenticated]
 
 
 # Customizing a revenue search query
@@ -27,8 +25,6 @@ class RevenuesViewSet(viewsets.ModelViewSet):
     # Searches
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
-    # Authentication
-    permission_classes = [IsAuthenticated]
 
 
 # List revenue in a given month
@@ -41,8 +37,6 @@ class RevenuesMonth(generics.ListAPIView):
     # Searches
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
-    # Authentication
-    permission_classes = [IsAuthenticated]
 
 
 # List expense in a given month
@@ -55,8 +49,6 @@ class ExpensesMonth(generics.ListAPIView):
     # Buscas
     filter_backends = [filters.SearchFilter]
     search_fields = ['description']
-    # Authentication
-    permission_classes = [IsAuthenticated]
 
 
 # List a summary in a given month

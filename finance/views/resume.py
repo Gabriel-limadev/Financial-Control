@@ -23,7 +23,8 @@ class ResumeMonth(APIView):
 
         final_balance = 0
         if total_expenses and total_revenues:
-            final_balance = int(total_expenses) - int(total_revenues)
+            final_balance = int(total_revenues) - int(total_expenses)
+
 
         # Returning an answer via Json
         return Response({

@@ -9,7 +9,6 @@ class ExpenseSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """Description must be unique in the same month and year as existing"""
         if Expense.objects.filter(description=data['description'], date=data['date']).exists():
-            print('teste')
             raise serializers.ValidationError({'description':'Expense already registered in this month'})
         return data
 
